@@ -47,7 +47,7 @@ class NoteItem extends Component {
 
     render() {
         const { note, connectDragSource, isDragging } = this.props
-        const { background, top, left, createAt, text } = this.props.note
+        const { background, top, left, createAt, text } = note
 
         let date = new Date(createAt)
         let year = date.getFullYear()
@@ -70,7 +70,7 @@ class NoteItem extends Component {
                     opacity: isDragging ? 0.5 : 1
                 }}>
                 <i onClick={this.handleDelete} className="material-icons fr pointer">close</i>
-                <i className="material-icons fr" onClick={this.handleEdit} >edit</i>
+                <i className="material-icons fr pointer" onClick={this.handleEdit} >edit</i>
                 <div className="content">
                     <p className="text">{text}</p>
                     <p className="create-time">创建于: {createTime}</p>

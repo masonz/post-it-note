@@ -33,7 +33,7 @@ input[type=text]:focus {
 }
 
 .main-section {
-  height: calc(100vh - 100px)
+  position: relative;
 }
 
 .footer {
@@ -43,6 +43,7 @@ input[type=text]:focus {
 
 .post-in-note-list {
   position: relative;
+  height: calc(100vh - 100px);
 }
 
 .post-in-note {
@@ -69,5 +70,5 @@ input[type=text]:focus {
 }
 
 .post-in-note .create-time {
-  float: right
+  float: right;
 }

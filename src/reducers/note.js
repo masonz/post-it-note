@@ -4,8 +4,11 @@ import { fromJS } from 'immutable'
 import { v4 } from 'node-uuid'
 
 
+const cache = localStorage.getItem('post-in-note')
+const cacheState = JSON.parse(cache)
+
 // 初始化便利贴数据
-const initialState = {
+const initialState = cacheState || {
     message: '',
     loading: false,
     items: []

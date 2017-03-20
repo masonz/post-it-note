@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import NoteItem from './NoteItem'
-import update from 'react/lib/update'
 import { DropTarget } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 import { ItemTypes } from '../constants/DragTypes'
 
 const noteTarget = {
@@ -12,7 +10,6 @@ const noteTarget = {
         let left = item.left + delta.x
         let top = item.top + delta.y
         props.moveNote(item.id, top, left)
-        // component.moveBox(item.id, left, top)
     }
 }
 
