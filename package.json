@@ -1,0 +1,36 @@
+{
+  "name": "post-it-note",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "humps": "^1.1.0",
+    "immutable": "^3.8.1",
+    "lodash": "^4.16.1",
+    "node-uuid": "^1.4.7",
+    "normalizr": "3.0.0",
+    "react": "^15.3.0",
+    "react-dnd": "^2.2.4",
+    "react-dnd-html5-backend": "^2.2.4",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.8.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
+    "redux-logger": "^2.6.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

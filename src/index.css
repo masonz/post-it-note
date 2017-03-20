@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.fr {
+  float: right;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.material-icons {
+  margin: 3.5px;
+  color: #FFF;
+}
+
+input[type=text] {
+  width: 350px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #BBB;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type=text]:focus {
+  border: 2px solid #555;
+}
+
+.main-section {
+  height: calc(100vh - 100px)
+}
+
+.footer {
+  display: block;
+  text-align: center;
+}
+
+.post-in-note-list {
+  position: relative;
+}
+
+.post-in-note {
+  z-index: 1;
+  cursor: move;
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  transform: translateZ(50px) translateY(-12px);
+  box-shadow: 0 12px 20px -12px rgba(0, 0, 0, .35);
+}
+
+.post-in-note.active {
+  z-index: 99;
+}
+
+.post-in-note .content {
+  padding: 20px 15px;
+}
+
+.post-in-note .text {
+  overflow: hidden;
+  height: 130px;
+}
+
+.post-in-note .create-time {
+  float: right
+}
