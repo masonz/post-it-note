@@ -2,18 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { DragSource } from 'react-dnd'
 import { ItemTypes } from '../constants/DragTypes'
+import { Editor, EditorState, ContentState, convertFromHTML, convertToRaw } from 'draft-js'
 
 const noteSource = {
     beginDrag(props) {
         const { id, top, left } = props.note
         return { id, top, left }
-    },
-    endDrag(props, monitor) {
-        const item = monitor.getItem()
-        const delta = monitor.getClientOffset()
-        if (delta) {
-            props.moveNote(item.id, delta.y, delta.x)
-        }
     }
 }
 
@@ -31,7 +25,13 @@ class NoteItem extends Component {
         isDragging: PropTypes.bool.isRequired
     }
 
-    state = { show: false }
+    state = {
+        show: false, editing: false, editorState: EditorState.createWithContent(
+            ContentState.createFromBlockArray(
+                convertFromHTML(this.props.note.text)
+            )
+        )
+    }
 
     handleToggle = () => {
         this.setState({ show: !this.state.show })
@@ -41,11 +41,25 @@ class NoteItem extends Component {
         this.props.deleteNote(this.props.note.id)
     }
 
-    handleEdit = () => {
+    handlePreview = () => {
+        this.setState({ editing: !this.state.editing })
+    }
 
+    handleEdit = () => {
+        let { id } = this.props.note
+        let content = this.state.editorState.getCurrentContent()
+        let text = convertToRaw(content).blocks[0].text
+        this.props.editNote(id, text)
+        this.handlePreview()
+    }
+
+    handleChange = (editorState) => {
+        this.setState({ editorState })
     }
 
     render() {
+
+        const { show, editing, editorState } = this.state
         const { note, connectDragSource, isDragging } = this.props
         const { background, top, left, createAt, text } = note
 
@@ -55,25 +69,44 @@ class NoteItem extends Component {
         let day = date.getDate()
         const createTime = `${year}-${month}-${day}`
 
+        const classname = classnames({
+            'post-in-note': true,
+            'active': show,
+            'edit': editing
+        })
+
         return connectDragSource(
             <div
-                className={classnames({
-                    'post-in-note': true,
-                    'active': this.state.show
-                })}
+                className={classname}
                 onMouseEnter={this.handleToggle}
                 onMouseLeave={this.handleToggle}
                 style={{
                     background,
                     top,
                     left,
-                    opacity: isDragging ? 0.5 : 1
+                    opacity: isDragging ? 0.4 : 1
                 }}>
-                <i onClick={this.handleDelete} className="material-icons fr pointer">close</i>
-                <i className="material-icons fr pointer" onClick={this.handleEdit} >edit</i>
+                {
+                    !editing
+                    && show
+                    && <i className="material-icons fr pointer" onClick={this.handleDelete}>delete</i>
+                }
+                {
+                    show && !editing
+                    && <i className="material-icons fr pointer" onClick={this.handlePreview} >info_outline</i>
+                }
+                {
+                    editing
+                    && <i className="material-icons fr pointer" onClick={this.handleEdit} >check</i>
+                }
                 <div className="content">
-                    <p className="text">{text}</p>
-                    <p className="create-time">创建于: {createTime}</p>
+                    {
+                        editing
+                            ?
+                            <Editor className="text" editorState={editorState} onChange={this.handleChange} />
+                            : <p className="text">{text}</p>
+                    }
+                    <p className="create-time">创建于：{createTime}</p>
                 </div>
             </div>
         )

@@ -16,8 +16,9 @@ class MainSection extends Component {
                 {/*<MockNote />*/}
                 <NoteList
                     notes={this.props.notes}
-                    deleteNote={this.props.actions.deleteNote}
                     moveNote={this.props.actions.moveNote}
+                    editNote={this.props.actions.editNote}
+                    deleteNote={this.props.actions.deleteNote}
                 />
             </div>
         )

@@ -1,7 +1,9 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
   font-family: sans-serif;
+  background: linear-gradient(to bottom, #A79E9D 0%, #C9BEBD 100%);
 }
 
 .fr {
@@ -42,7 +44,10 @@ input[type=text]:focus {
 }
 
 .post-in-note-list {
+  display: flex;
   position: relative;
+  align-items: center;
+  justify-content: center;
   height: calc(100vh - 100px);
 }
 
@@ -51,7 +56,9 @@ input[type=text]:focus {
   cursor: move;
   width: 250px;
   height: 250px;
+  color: #696969;
   position: absolute;
+  transition: all 0.5s;
   transform: translateZ(50px) translateY(-12px);
   box-shadow: 0 12px 20px -12px rgba(0, 0, 0, .35);
 }
@@ -60,13 +67,26 @@ input[type=text]:focus {
   z-index: 99;
 }
 
+.post-in-note.edit {
+  transform: scale(2);
+  position: initial;
+}
+
+.post-in-note.edit .content {
+  padding: 30px 15px;
+}
+
+.post-in-note.edit .DraftEditor-root {
+  min-height: 166px;
+}
+
 .post-in-note .content {
   padding: 20px 15px;
 }
 
 .post-in-note .text {
   overflow: hidden;
-  height: 130px;
+  height: 140px;
 }
 
 .post-in-note .create-time {

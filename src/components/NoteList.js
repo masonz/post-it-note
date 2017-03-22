@@ -9,6 +9,18 @@ const noteTarget = {
         let delta = monitor.getDifferenceFromInitialOffset()
         let left = item.left + delta.x
         let top = item.top + delta.y
+        if (left < 0) {
+            left = 0
+        }
+        if (top < 0) {
+            top = 10
+        }
+        if (left + 300 > window.innerWidth) {
+            left = window.innerWidth - 250
+        }
+        if (top + 400 > window.innerHeight) {
+            top = window.innerHeight - 350
+        }
         props.moveNote(item.id, top, left)
     }
 }
@@ -21,8 +33,9 @@ class NoteList extends Component {
 
     static propTypes = {
         notes: PropTypes.array.isRequired,
-        deleteNote: PropTypes.func.isRequired,
+        editNote: PropTypes.func.isRequired,
         moveNote: PropTypes.func.isRequired,
+        deleteNote: PropTypes.func.isRequired,
         connectDropTarget: PropTypes.func.isRequired
     }
 
@@ -31,7 +44,14 @@ class NoteList extends Component {
         const { connectDropTarget, notes } = this.props
 
         const note_list = notes.map((note, index) => {
-            return <NoteItem key={note.id} note={note} deleteNote={this.props.deleteNote} moveNote={this.props.moveNote} />
+            return (
+                <NoteItem
+                    note={note}
+                    key={note.id}
+                    editNote={this.props.editNote}
+                    moveNote={this.props.moveNote}
+                    deleteNote={this.props.deleteNote} />
+            )
         })
 
         return connectDropTarget(

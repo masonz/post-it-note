@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import colors from '../constants/Color'
+import { v4 } from 'node-uuid'
 
 class NoteInput extends Component {
 
@@ -15,9 +17,29 @@ class NoteInput extends Component {
     handleSubmit = e => {
         let { text } = this.state
         if (e.which === 13 && text) {
-            this.props.addNote(text)
+            let note = this.generatorNote(text)
+            this.props.addNote(note)
             this.setState({ text: '' })
         }
+    }
+
+    generatorNote = (text) => {
+        const maxWidth = window.innerWidth
+        const maxHeight = window.innerHeight
+        let randX = parseInt((maxWidth - 250) * Math.random(), 10)
+        let randY = parseInt((maxHeight - 350) * Math.random(), 10)
+        let background = colors[parseInt(Math.random() * colors.length, 10)]
+        let note = {
+            text,
+            id: v4(),
+            level: 1,
+            background,
+            top: randY,
+            left: randX,
+            completed: false,
+            createAt: Date.now()
+        }
+        return note
     }
 
     render() {
